@@ -271,3 +271,212 @@ input[type="number"] {
     font-size: 1rem;
   }
 }
+
+/* Card-style Table (Database Style) */
+.card-table {
+  width: 100%;
+  background: var(--primary-900);
+  font-family: "Courier New", Courier, monospace;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  overflow: hidden;
+  margin: 1rem 0;
+  box-shadow: 0 4px 12px rgba(2, 16, 255, 0.2);
+}
+
+.card-table__title {
+  color: white;
+  font-weight: bold;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--primary-400);
+  font-size: 1rem;
+  background: var(--primary-800);
+  text-align: center;
+}
+
+.card-table__data {
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  border-right: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.card-table__left {
+  width: 50%;
+  border-right: 1px solid var(--border);
+}
+
+.card-table__right {
+  width: 50%;
+  text-align: end;
+}
+
+.card-table__item {
+  padding: 10px 16px;
+  background-color: white;
+  color: var(--text);
+  border-bottom: 1px solid var(--border-light);
+  transition: background-color 0.2s ease;
+}
+
+.card-table__item:last-child {
+  border-bottom: none;
+}
+
+.card-table__left .card-table__item {
+  text-align: left;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.card-table__right .card-table__item {
+  text-align: right;
+}
+
+.card-table__item:nth-child(even) {
+  background: var(--primary-50);
+}
+
+/* Header row (Serie | Reps/Peso) */
+.card-table__left .card-table__item:first-child,
+.card-table__right .card-table__item:first-child {
+  background: var(--primary-100);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  color: var(--primary-dark);
+}
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+  .card-table__title {
+    font-size: 1.1rem;
+    padding: 12px 16px;
+  }
+
+  .card-table__data {
+    font-size: 1rem;
+  }
+
+  .card-table__item {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-table {
+    margin: 0.75rem 0;
+  }
+
+  .card-table__title {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+
+  .card-table__data {
+    font-size: 0.9rem;
+  }
+
+  .card-table__item {
+    padding: 10px 12px;
+  }
+}
+
+/* Delete Button - Animated Style */
+.btn-delete {
+  width: 140px;
+  height: 45px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: var(--danger);
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+  transition: all 200ms ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.btn-delete:hover {
+  background: #dc2626;
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+.btn-delete:active {
+  transform: scale(0.97);
+}
+
+.btn-delete:focus {
+  outline: none;
+}
+
+.btn-delete__text {
+  transform: translateX(30px);
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 200ms ease;
+  white-space: nowrap;
+}
+
+.btn-delete:hover .btn-delete__text {
+  color: transparent;
+}
+
+.btn-delete__icon {
+  position: absolute;
+  border-left: 1px solid #b91c1c;
+  transform: translateX(100px);
+  height: 35px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+}
+
+.btn-delete:hover .btn-delete__icon {
+  width: 140px;
+  border-left: none;
+  transform: translateX(0);
+}
+
+.btn-delete__icon svg {
+  width: 16px;
+  height: 16px;
+  fill: #ffffff;
+  transition: transform 200ms ease;
+}
+
+.btn-delete:active .btn-delete__icon svg {
+  transform: scale(0.8);
+}
+
+/* Responsive delete button */
+@media (max-width: 640px) {
+  .btn-delete {
+    width: 120px;
+    height: 42px;
+  }
+
+  .btn-delete__text {
+    transform: translateX(25px);
+    font-size: 0.9rem;
+  }
+
+  .btn-delete__icon {
+    transform: translateX(85px);
+    width: 35px;
+    height: 32px;
+  }
+
+  .btn-delete:hover .btn-delete__icon {
+    width: 120px;
+  }
+}
