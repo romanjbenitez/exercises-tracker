@@ -70,12 +70,12 @@ const Estadisticas: React.FC<EstadisticasProps> = ({ entrenamientos }) => {
 
         const incrementoPeso = ultimo.pesoMaximo - primero.pesoMaximo;
         const porcentajePeso = primero.pesoMaximo > 0
-            ? ((incrementoPeso / primero.pesoMaximo) * 100).toFixed(1)
+            ? parseFloat(((incrementoPeso / primero.pesoMaximo) * 100).toFixed(1))
             : 0;
 
         const incrementoVolumen = ultimo.volumenTotal - primero.volumenTotal;
         const porcentajeVolumen = primero.volumenTotal > 0
-            ? ((incrementoVolumen / primero.volumenTotal) * 100).toFixed(1)
+            ? parseFloat(((incrementoVolumen / primero.volumenTotal) * 100).toFixed(1))
             : 0;
 
         return {
@@ -152,7 +152,7 @@ const Estadisticas: React.FC<EstadisticasProps> = ({ entrenamientos }) => {
                                                 <strong>Peso Máximo:</strong>
                                                 <div style={{ fontSize: '20px', color: progreso.incrementoPeso >= 0 ? '#4CAF50' : '#f44336' }}>
                                                     {progreso.incrementoPeso >= 0 ? '+' : ''}{progreso.incrementoPeso} kg
-                                                    ({progreso.porcentajePeso >= 0 ? '+' : ''}{progreso.porcentajeVolumen}%)
+                                                    ({progreso.porcentajePeso >= 0 ? '+' : ''}{progreso.porcentajePeso}%)
                                                 </div>
                                             </div>
                                             <div>

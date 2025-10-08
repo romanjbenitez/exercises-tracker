@@ -3,15 +3,16 @@ import type { Ejercicio } from './models/Ejercicio';
 import type { Rutina } from './models/Rutina';
 import type { Entrenamiento } from './models/Entrenamiento';
 
-const auth = new google.auth.GoogleAuth({
-  credentials: {
-    client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-  },
-  scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-});
+// Configurar autenticación usando JWT
+const getAuthClient = () => {
+  return new google.auth.JWT({
+    email: process.env.GOOGLE_CLIENT_EMAIL,
+    key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  });
+};
 
-const sheets = google.sheets({ version: 'v4', auth });
+const sheets = google.sheets({ version: 'v4', auth: getAuthClient() });
 const SHEET_ID = process.env.GOOGLE_SHEET_ID!;
 
 // ============ EJERCICIOS ============
