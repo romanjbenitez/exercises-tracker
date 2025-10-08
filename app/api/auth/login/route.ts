@@ -5,7 +5,12 @@ export async function POST(request: NextRequest) {
   try {
     const { password } = await request.json();
 
+    console.log('🔐 Login attempt');
+    console.log('Password received:', password ? '***' : 'EMPTY');
+    console.log('AUTH_PASSWORD env:', process.env.AUTH_PASSWORD ? 'SET' : 'NOT SET');
+
     if (!password) {
+      console.log('❌ No password provided');
       return NextResponse.json(
         { error: 'Se requiere contraseña' },
         { status: 400 }
@@ -13,12 +18,20 @@ export async function POST(request: NextRequest) {
     }
 
     // Verificar contraseña
-    if (!verifyPassword(password)) {
+    const isValid = verifyPassword(password);
+    console.log('Password validation result:', isValid);
+
+    if (!isValid) {
+      console.log('❌ Invalid password');
+      console.log('Expected:', process.env.AUTH_PASSWORD);
+      console.log('Received:', password);
       return NextResponse.json(
         { error: 'Contraseña incorrecta' },
         { status: 401 }
       );
     }
+
+    console.log('✅ Login successful');
 
     // Crear respuesta con cookie
     const response = NextResponse.json({ success: true });
