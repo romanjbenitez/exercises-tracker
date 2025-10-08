@@ -25,7 +25,7 @@ const EjercicioForm: React.FC<EjercicioFormProps> = ({ ejercicioInicial, onGuard
             setRepeticiones(Array(series).fill(0));
             setPesos(Array(series).fill(0));
         }
-    }, [series]);
+    }, [series, repeticiones.length]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

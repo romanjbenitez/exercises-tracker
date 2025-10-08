@@ -21,7 +21,7 @@ interface ProgresoEjercicio {
     }[];
 }
 
-const Estadisticas: React.FC<EstadisticasProps> = ({ entrenamientos, ejercicios }) => {
+const Estadisticas: React.FC<EstadisticasProps> = ({ entrenamientos }) => {
     const [ejercicioSeleccionado, setEjercicioSeleccionado] = useState<string>('');
 
     // Calcular progreso por ejercicio
