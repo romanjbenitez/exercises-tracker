@@ -73,7 +73,7 @@ const EjercicioForm: React.FC<EjercicioFormProps> = ({ ejercicioInicial, onGuard
                         type="number"
                         value={series}
                         onChange={(e) => setSeries(parseInt(e.target.value) || 1)}
-                        min="1"
+                        min="0"
                         max="10"
                         required
                         style={{ marginLeft: '10px', padding: '5px', width: '60px' }}

@@ -117,3 +117,157 @@ input[type="number"] {
     margin: 0 auto;
   }
 }
+
+/* Modern Table Styles - Estilo Uiverse.io */
+.modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.modern-table thead {
+  background: var(--primary);
+  box-shadow: 0 5px 10px rgba(2, 16, 255, 0.15);
+}
+
+.modern-table thead th {
+  padding: 1.5rem 1.25rem;
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.813rem;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 3px solid var(--primary-light);
+  position: relative;
+}
+
+.modern-table thead th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.modern-table thead th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.modern-table tbody tr {
+  background-color: var(--surface-elevated);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 2px solid var(--border);
+}
+
+.modern-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.modern-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+
+.modern-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+.modern-table tbody tr:hover {
+  background: linear-gradient(90deg, rgba(2, 16, 255, 0.05) 0%, var(--surface-elevated) 100%);
+  transform: scale(1.01);
+  box-shadow: 0 4px 12px rgba(2, 16, 255, 0.08);
+  position: relative;
+  z-index: 1;
+}
+
+.modern-table tbody td {
+  padding: 1.25rem;
+  color: var(--text);
+  font-size: 0.938rem;
+  font-weight: 500;
+  vertical-align: middle;
+  border-right: 1px solid var(--border-light);
+}
+
+.modern-table tbody td:last-child {
+  border-right: none;
+}
+
+.modern-table tbody td:first-child {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+/* Badges y etiquetas */
+.table-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table-badge-success {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.table-badge-primary {
+  background-color: var(--primary-50);
+  color: var(--primary);
+}
+
+/* Responsive table en mobile */
+@media (max-width: 640px) {
+  .modern-table {
+    border-radius: 12px;
+  }
+
+  .modern-table thead {
+    display: none;
+  }
+
+  .modern-table tbody tr {
+    display: block;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .modern-table tbody tr:hover {
+    transform: none;
+    box-shadow: var(--shadow);
+    border-color: var(--primary);
+  }
+
+  .modern-table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .modern-table tbody td:last-child {
+    border-bottom: none;
+  }
+
+  .modern-table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .modern-table tbody td:first-child {
+    background: linear-gradient(135deg, var(--primary-50) 0%, transparent 100%);
+    font-size: 1rem;
+  }
+}

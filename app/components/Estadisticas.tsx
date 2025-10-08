@@ -170,15 +170,15 @@ const Estadisticas: React.FC<EstadisticasProps> = ({ entrenamientos }) => {
                                 );
                             })()}
 
-                            <h4>Historial de Progreso</h4>
-                            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                            <h4 style={{ marginBottom: '1rem' }}>Historial de Progreso</h4>
+                            <table className="modern-table">
                                 <thead>
-                                    <tr style={{ backgroundColor: '#f0f0f0' }}>
-                                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>Fecha</th>
-                                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>Semana</th>
-                                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>Peso Máximo (kg)</th>
-                                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>Reps Máximas</th>
-                                        <th style={{ padding: '10px', border: '1px solid #ddd' }}>Volumen Total (kg)</th>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Semana</th>
+                                        <th>Peso Máximo</th>
+                                        <th>Reps Máx</th>
+                                        <th>Volumen</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -189,31 +189,21 @@ const Estadisticas: React.FC<EstadisticasProps> = ({ entrenamientos }) => {
 
                                         return (
                                             <tr key={index}>
-                                                <td style={{ padding: '10px', border: '1px solid #ddd' }}>
+                                                <td data-label="Fecha">
                                                     {new Date(registro.fecha).toLocaleDateString('es-ES')}
                                                 </td>
-                                                <td style={{ padding: '10px', border: '1px solid #ddd', textAlign: 'center' }}>
-                                                    {registro.semana}
+                                                <td data-label="Semana" style={{ textAlign: 'center' }}>
+                                                    <span className="table-badge table-badge-primary">S{registro.semana}</span>
                                                 </td>
-                                                <td style={{
-                                                    padding: '10px',
-                                                    border: '1px solid #ddd',
-                                                    textAlign: 'center',
-                                                    backgroundColor: mejoroPeso ? '#c8e6c9' : 'transparent'
-                                                }}>
-                                                    {registro.pesoMaximo}
+                                                <td data-label="Peso Máximo" style={{ textAlign: 'center' }}>
+                                                    {registro.pesoMaximo} kg
                                                     {mejoroPeso && ' 🔥'}
                                                 </td>
-                                                <td style={{ padding: '10px', border: '1px solid #ddd', textAlign: 'center' }}>
+                                                <td data-label="Reps Máximas" style={{ textAlign: 'center' }}>
                                                     {registro.repeticionesMaximas}
                                                 </td>
-                                                <td style={{
-                                                    padding: '10px',
-                                                    border: '1px solid #ddd',
-                                                    textAlign: 'center',
-                                                    backgroundColor: mejoroVolumen ? '#c8e6c9' : 'transparent'
-                                                }}>
-                                                    {registro.volumenTotal.toFixed(0)}
+                                                <td data-label="Volumen Total" style={{ textAlign: 'center' }}>
+                                                    {registro.volumenTotal.toFixed(0)} kg
                                                     {mejoroVolumen && ' 🔥'}
                                                 </td>
                                             </tr>

@@ -6,7 +6,7 @@ import type { Ejercicio } from "@/lib/models/Ejercicio";
 
 const EjercicioComponent: React.FC<Ejercicio> = ({ series, nombre, repeticiones, pesos }) => {
     return (
-        <table>
+        <table className="modern-table">
             <thead>
                 <tr>
                     <th>{nombre}</th>
@@ -17,10 +17,10 @@ const EjercicioComponent: React.FC<Ejercicio> = ({ series, nombre, repeticiones,
             <tbody>
                 {Array.from({ length: series }).map((_, i) => (
                     <tr key={i}>
-                        <td>{[i + 1] }</td>
-                        <td>{repeticiones[i]}</td>
-                        <td>{pesos[i]}</td> 
-                        
+                        <td data-label="Serie">{i + 1}</td>
+                        <td data-label="Repeticiones">{repeticiones[i]}</td>
+                        <td data-label="Peso (kg)">{pesos[i]}</td>
+
                     </tr>
                 ))}
             </tbody>

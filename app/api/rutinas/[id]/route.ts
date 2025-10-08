@@ -41,10 +41,15 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
+    console.log('🗑️ Attempting to delete rutina with ID:', id);
     await deleteRutina(id);
-    return NextResponse.json({ success: true }, { status: 204 });
+    console.log('✅ Rutina deleted successfully');
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting rutina:', error);
-    return NextResponse.json({ error: 'Error al eliminar rutina' }, { status: 500 });
+    console.error('❌ Error deleting rutina:', error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Error al eliminar rutina' },
+      { status: 500 }
+    );
   }
 }

@@ -106,7 +106,7 @@ export async function deleteEjercicio(id: string): Promise<void> {
       requests: [{
         deleteDimension: {
           range: {
-            sheetId: 0, // ID de la hoja Ejercicios (la primera hoja es 0)
+            sheetId: 235649066, // ID de la hoja Ejercicios
             dimension: 'ROWS',
             startIndex: rowIndex + 1, // +1 porque fila 0 es el header
             endIndex: rowIndex + 2,
@@ -208,7 +208,7 @@ export async function deleteRutina(id: string): Promise<void> {
       requests: [{
         deleteDimension: {
           range: {
-            sheetId: 1, // ID de la hoja Rutinas (segunda hoja es 1)
+            sheetId: 1731153842, // ID de la hoja Rutinas
             dimension: 'ROWS',
             startIndex: rowIndex + 1,
             endIndex: rowIndex + 2,
@@ -316,7 +316,7 @@ export async function deleteEntrenamiento(id: string): Promise<void> {
       requests: [{
         deleteDimension: {
           range: {
-            sheetId: 2, // ID de la hoja Entrenamientos (tercera hoja es 2)
+            sheetId: 438106460, // ID de la hoja Entrenamientos
             dimension: 'ROWS',
             startIndex: rowIndex + 1,
             endIndex: rowIndex + 2,

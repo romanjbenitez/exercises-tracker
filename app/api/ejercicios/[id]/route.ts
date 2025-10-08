@@ -41,10 +41,12 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
+    console.log('🗑️ Deleting ejercicio:', id);
     await deleteEjercicio(id);
-    return NextResponse.json({ success: true }, { status: 204 });
+    console.log('✅ Ejercicio deleted successfully');
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error deleting ejercicio:', error);
+    console.error('❌ Error deleting ejercicio:', error);
     return NextResponse.json({ error: 'Error al eliminar ejercicio' }, { status: 500 });
   }
 }

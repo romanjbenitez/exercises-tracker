@@ -42,7 +42,7 @@ export async function DELETE(
   try {
     const { id } = await params;
     await deleteEntrenamiento(id);
-    return NextResponse.json({ success: true }, { status: 204 });
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting entrenamiento:', error);
     return NextResponse.json({ error: 'Error al eliminar entrenamiento' }, { status: 500 });
