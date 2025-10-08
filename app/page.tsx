@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import EjerciciosList from './components/EjerciciosList';
 import RutinasList from './components/RutinasList';
 import EntrenamientoActivo from './components/EntrenamientoActivo';
@@ -22,6 +23,15 @@ const vistas: { id: Vista; label: string; icon: string }[] = [
 
 export default function Home() {
   const [vistaActual, setVistaActual] = useState<Vista>('entrenar');
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    if (confirm('¿Cerrar sesión?')) {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      router.push('/login');
+      router.refresh();
+    }
+  };
 
   const {
     ejercicios,
@@ -60,30 +70,56 @@ export default function Home() {
         zIndex: 100,
         boxShadow: 'var(--shadow-sm)'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '10px',
-            backgroundColor: 'var(--primary)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '1.25rem'
-          }}>
-            💪
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '10px',
+              backgroundColor: 'var(--primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '1.25rem'
+            }}>
+              💪
+            </div>
+            <h1 style={{
+              fontSize: '1.25rem',
+              fontWeight: '700',
+              margin: 0,
+              background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
+              Gym Tracker
+            </h1>
           </div>
-          <h1 style={{
-            fontSize: '1.25rem',
-            fontWeight: '700',
-            margin: 0,
-            background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
-          }}>
-            Gym Tracker
-          </h1>
+
+          {/* Botón de logout */}
+          <button
+            onClick={handleLogout}
+            style={{
+              padding: '0.5rem 0.75rem',
+              fontSize: '0.875rem',
+              fontWeight: '500',
+              backgroundColor: 'transparent',
+              color: 'var(--text-secondary)',
+              border: '1px solid var(--border)',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'var(--border)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+            }}
+          >
+            Salir
+          </button>
         </div>
       </header>
 
