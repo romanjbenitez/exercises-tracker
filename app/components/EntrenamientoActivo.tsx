@@ -60,8 +60,13 @@ const EntrenamientoActivo: React.FC<EntrenamientoActivoProps> = ({
     const handleSerieChange = (ejercicioIndex: number, serieIndex: number, campo: 'repeticiones' | 'peso', valor: string) => {
         setEjerciciosCompletados(prev => {
             const nuevos = [...prev];
-            const valorNumerico = campo === 'peso' ? parseFloat(valor) || 0 : parseInt(valor) || 0;
-            nuevos[ejercicioIndex].series[serieIndex][campo] = valorNumerico;
+            // Si está vacío, guardar como 0 pero el input mostrará vacío gracias al || ''
+            if (valor === '') {
+                nuevos[ejercicioIndex].series[serieIndex][campo] = 0 as any;
+            } else {
+                const valorNumerico = campo === 'peso' ? parseFloat(valor) : parseInt(valor);
+                nuevos[ejercicioIndex].series[serieIndex][campo] = isNaN(valorNumerico) ? 0 : valorNumerico;
+            }
             return nuevos;
         });
     };
@@ -289,7 +294,7 @@ const EntrenamientoActivo: React.FC<EntrenamientoActivoProps> = ({
                                             <input
                                                 type="number"
                                                 inputMode="numeric"
-                                                value={serie.repeticiones || ''}
+                                                value={serie.repeticiones === 0 ? '' : serie.repeticiones}
                                                 onChange={(e) => handleSerieChange(ejercicioActualIndex, serieIndex, 'repeticiones', e.target.value)}
                                                 min="0"
                                                 style={{
@@ -322,7 +327,7 @@ const EntrenamientoActivo: React.FC<EntrenamientoActivoProps> = ({
                                                 type="number"
                                                 inputMode="decimal"
                                                 step="0.5"
-                                                value={serie.peso || ''}
+                                                value={serie.peso === 0 ? '' : serie.peso}
                                                 onChange={(e) => handleSerieChange(ejercicioActualIndex, serieIndex, 'peso', e.target.value)}
                                                 min="0"
                                                 style={{

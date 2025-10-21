@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import type { Ejercicio } from '@/lib/models/Ejercicio';
 import EjercicioComponent from './EjercicioComponent';
 import EjercicioForm from './EjercicioForm';
@@ -20,6 +20,7 @@ const EjerciciosList: React.FC<EjerciciosListProps> = ({
 }) => {
     const [mostrarForm, setMostrarForm] = useState(false);
     const [ejercicioEditando, setEjercicioEditando] = useState<Ejercicio | undefined>(undefined);
+    const formRef = useRef<HTMLDivElement>(null);
 
     const handleGuardar = (ejercicio: Ejercicio) => {
         if (ejercicioEditando) {
@@ -34,6 +35,10 @@ const EjerciciosList: React.FC<EjerciciosListProps> = ({
     const handleEditar = (ejercicio: Ejercicio) => {
         setEjercicioEditando(ejercicio);
         setMostrarForm(true);
+        // Scroll al formulario después de un pequeño delay para que se renderice
+        setTimeout(() => {
+            formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     };
 
     const handleCancelar = () => {
@@ -44,25 +49,30 @@ const EjerciciosList: React.FC<EjerciciosListProps> = ({
     const handleNuevo = () => {
         setEjercicioEditando(undefined);
         setMostrarForm(true);
+        // Scroll al formulario después de un pequeño delay para que se renderice
+        setTimeout(() => {
+            formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     };
 
     return (
         <div>
             <div style={{ marginBottom: '20px' }}>
                 <h2>Gestión de Ejercicios</h2>
-                {!mostrarForm && (
-                    <button onClick={handleNuevo} style={{ padding: '10px 20px', fontSize: '16px' }}>
-                        + Nuevo Ejercicio
-                    </button>
-                )}
+                <button onClick={handleNuevo} style={{ padding: '10px 20px', fontSize: '16px' }}>
+                    + Nuevo Ejercicio
+                </button>
             </div>
 
-            {mostrarForm && (
-                <EjercicioForm
-                    ejercicioInicial={ejercicioEditando}
-                    onGuardar={handleGuardar}
-                    onCancelar={handleCancelar}
-                />
+            {/* Formulario para nuevo ejercicio (sin ejercicioEditando) */}
+            {mostrarForm && !ejercicioEditando && (
+                <div ref={formRef} style={{ marginBottom: '20px' }}>
+                    <EjercicioForm
+                        ejercicioInicial={ejercicioEditando}
+                        onGuardar={handleGuardar}
+                        onCancelar={handleCancelar}
+                    />
+                </div>
             )}
 
             <div style={{ marginTop: '30px' }}>
@@ -71,31 +81,44 @@ const EjerciciosList: React.FC<EjerciciosListProps> = ({
                     <p>No hay ejercicios. Crea uno nuevo para empezar.</p>
                 ) : (
                     ejercicios.map((ejercicio) => (
-                        <div key={ejercicio.id} style={{ marginBottom: '20px', border: '1px solid #ddd', padding: '10px' }}>
-                            <EjercicioComponent
-                                id={ejercicio.id}
-                                nombre={ejercicio.nombre}
-                                series={ejercicio.series}
-                                repeticiones={ejercicio.repeticiones}
-                                pesos={ejercicio.pesos}
-                            />
-                            <div style={{ marginTop: '10px' }}>
-                                <button
-                                    onClick={() => handleEditar(ejercicio)}
-                                    style={{ marginRight: '10px', padding: '5px 10px' }}
-                                >
-                                    Editar
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        if (confirm(`¿Eliminar "${ejercicio.nombre}"?`)) {
-                                            onEliminar(ejercicio.id);
-                                        }
-                                    }}
-                                    style={{ padding: '5px 10px', backgroundColor: '#ff4444', color: 'white' }}
-                                >
-                                    Eliminar
-                                </button>
+                        <div key={ejercicio.id} style={{ marginBottom: '20px' }}>
+                            {/* Formulario de edición justo arriba de la tarjeta */}
+                            {mostrarForm && ejercicioEditando?.id === ejercicio.id && (
+                                <div ref={formRef} style={{ marginBottom: '10px', padding: '10px', backgroundColor: '#f9f9f9', border: '2px solid var(--primary)', borderRadius: '8px' }}>
+                                    <EjercicioForm
+                                        ejercicioInicial={ejercicioEditando}
+                                        onGuardar={handleGuardar}
+                                        onCancelar={handleCancelar}
+                                    />
+                                </div>
+                            )}
+
+                            <div style={{ border: '1px solid #ddd', padding: '10px' }}>
+                                <EjercicioComponent
+                                    id={ejercicio.id}
+                                    nombre={ejercicio.nombre}
+                                    series={ejercicio.series}
+                                    repeticiones={ejercicio.repeticiones}
+                                    pesos={ejercicio.pesos}
+                                />
+                                <div style={{ marginTop: '10px' }}>
+                                    <button
+                                        onClick={() => handleEditar(ejercicio)}
+                                        style={{ marginRight: '10px', padding: '5px 10px' }}
+                                    >
+                                        Editar
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            if (confirm(`¿Eliminar "${ejercicio.nombre}"?`)) {
+                                                onEliminar(ejercicio.id);
+                                            }
+                                        }}
+                                        style={{ padding: '5px 10px', backgroundColor: '#ff4444', color: 'white' }}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))
