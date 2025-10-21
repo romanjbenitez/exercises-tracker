@@ -89,22 +89,33 @@ const EjercicioForm: React.FC<EjercicioFormProps> = ({ ejercicioInicial, onGuard
                         <label style={{ marginRight: '15px' }}>
                             Reps:
                             <input
-                                type="number"
-                                value={repeticiones[i] || 0}
-                                onChange={(e) => handleRepChange(i, e.target.value)}
-                                min="0"
+                                type="text"
+                                inputMode="numeric"
+                                value={repeticiones[i] === 0 ? '' : repeticiones[i]}
+                                onChange={(e) => {
+                                    const val = e.target.value;
+                                    if (val === '' || /^\d+$/.test(val)) {
+                                        handleRepChange(i, val);
+                                    }
+                                }}
                                 style={{ marginLeft: '5px', padding: '5px', width: '60px' }}
+                                placeholder="0"
                             />
                         </label>
                         <label>
                             Peso (kg):
                             <input
-                                type="number"
-                                step="0.5"
-                                value={pesos[i] || 0}
-                                onChange={(e) => handlePesoChange(i, e.target.value)}
-                                min="0"
+                                type="text"
+                                inputMode="decimal"
+                                value={pesos[i] === 0 ? '' : pesos[i]}
+                                onChange={(e) => {
+                                    const val = e.target.value;
+                                    if (val === '' || /^\d*\.?\d*$/.test(val)) {
+                                        handlePesoChange(i, val);
+                                    }
+                                }}
                                 style={{ marginLeft: '5px', padding: '5px', width: '70px' }}
+                                placeholder="0"
                             />
                         </label>
                     </div>

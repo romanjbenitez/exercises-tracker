@@ -62,7 +62,7 @@ const EntrenamientoActivo: React.FC<EntrenamientoActivoProps> = ({
             const nuevos = [...prev];
             // Si está vacío, guardar como 0 pero el input mostrará vacío gracias al || ''
             if (valor === '') {
-                nuevos[ejercicioIndex].series[serieIndex][campo] = 0 as any;
+                nuevos[ejercicioIndex].series[serieIndex][campo] = 0;
             } else {
                 const valorNumerico = campo === 'peso' ? parseFloat(valor) : parseInt(valor);
                 nuevos[ejercicioIndex].series[serieIndex][campo] = isNaN(valorNumerico) ? 0 : valorNumerico;
@@ -292,11 +292,16 @@ const EntrenamientoActivo: React.FC<EntrenamientoActivoProps> = ({
                                                 Repeticiones
                                             </label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 inputMode="numeric"
                                                 value={serie.repeticiones === 0 ? '' : serie.repeticiones}
-                                                onChange={(e) => handleSerieChange(ejercicioActualIndex, serieIndex, 'repeticiones', e.target.value)}
-                                                min="0"
+                                                onChange={(e) => {
+                                                    const val = e.target.value;
+                                                    // Solo permitir números
+                                                    if (val === '' || /^\d+$/.test(val)) {
+                                                        handleSerieChange(ejercicioActualIndex, serieIndex, 'repeticiones', val);
+                                                    }
+                                                }}
                                                 style={{
                                                     width: '100%',
                                                     padding: '1rem',
@@ -324,12 +329,16 @@ const EntrenamientoActivo: React.FC<EntrenamientoActivoProps> = ({
                                                 Peso (kg)
                                             </label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 inputMode="decimal"
-                                                step="0.5"
                                                 value={serie.peso === 0 ? '' : serie.peso}
-                                                onChange={(e) => handleSerieChange(ejercicioActualIndex, serieIndex, 'peso', e.target.value)}
-                                                min="0"
+                                                onChange={(e) => {
+                                                    const val = e.target.value;
+                                                    // Solo permitir números y un punto decimal
+                                                    if (val === '' || /^\d*\.?\d*$/.test(val)) {
+                                                        handleSerieChange(ejercicioActualIndex, serieIndex, 'peso', val);
+                                                    }
+                                                }}
                                                 style={{
                                                     width: '100%',
                                                     padding: '1rem',

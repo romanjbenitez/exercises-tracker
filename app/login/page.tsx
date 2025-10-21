@@ -30,7 +30,7 @@ export default function LoginPage() {
       } else {
         setError(data.error || 'Contraseña incorrecta');
       }
-    } catch (err) {
+    } catch {
       setError('Error al iniciar sesión');
     } finally {
       setLoading(false);
